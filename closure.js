@@ -38,7 +38,7 @@ console.log(chaining().add(1, 2).add(2, 3))
 
 const add = x => y => add(x + y)
 
-console.log(add(1)(2)(3)(4)(5)(6))
+console.log(add(1)(2))
 
 
 

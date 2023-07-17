@@ -1,58 +1,81 @@
-const { performance } = require('perf_hooks');
+// const { performance } = require('perf_hooks');
 const sorted = []
 let i = 0
 while(i < 10000) {
   sorted.push({ key: i, value: `value-${i}` })
   i++
 }
+const binarySearchRecursive = (array, target, start, end) => {
+  if (start === undefined) {
+    start = 0
+  }
 
-const binarySearch = (sorted, wanted) => {
-  const middle = Math.ceil(sorted.length / 2);
-  const first = sorted.slice(0, middle)
-  const second = sorted.slice(middle)
-  const aboba = Math.pow(Math.ceil(6 + 3 / 2 + 15 + 23 + 99 + 15), 2)
-  console.log(aboba)
+  if (end === undefined) {
+    end = array.length - 1
+  }
 
-  if (first.length === 0) {
-    return first[0].value
+  const arrayLength = array.length;
+
+  if (arrayLength === 1) {
+    return 0
   }
-  if (second[0].key === wanted) {
-    return second[0].value
+
+  if (arrayLength === 0) {
+    return null
   }
-  if (second[0].key > wanted) {
-    return binarySearch(first, wanted)
-  } else {
-    return binarySearch(second, wanted)
+
+  const middle = Math.round((end + start) / 2);
+
+  if (array[start].key === target) {
+    return start;
   }
+
+  if (array[middle].key === target) {
+    return middle;
+  }
+
+  if (array[end].key === target) {
+    return end;
+  }
+  if (target < array[middle].key) {
+    return binarySearchRecursive(array, target, start, middle)
+  }
+  
+  return binarySearchRecursive(array, target, middle, end)
 }
 
-const defaultSearch = (sorted, wanted) => {
-  sorted.forEach(el => {
-    const aboba = Math.pow(Math.ceil(6 + 3 / 2 + 15 + 23 + 99 + 15), 2)
-    console.log(aboba)
-    if (el.key === wanted) {
-      return el.value
+const binarySearchLoop = (array, target) => {
+  let start = 0;
+  let end = array.length - 1;
+  let middle = Math.round(end / 2);
+  let position = -1;
+
+  while (position === -1) {
+    if (target === array[middle].key) {
+      position = middle;
+      break;
     }
-  })
+    if (target === array[end].key) {
+      position = end;
+      break;
+    }
+    if (target === array[start].key) {
+      position = start;
+      break;
+    }
+
+    if (target < array[middle].key) {
+      end = middle;
+      middle = Math.round((start + end) / 2)
+    } else {
+      start = middle;
+      middle = Math.round((start + end) / 2)
+    }
+  }
+
+  return position;
 }
 
-const startB = performance.now()
-
-
-console.log(binarySearch(sorted, 999))
-// console.log(defaultSearch(sorted, 50))
-
-const endB = performance.now()
-
-const start = performance.now()
-
-
-// console.log(binarySearch(sorted, 50))
-console.log(defaultSearch(sorted, 999))
-
-const end = performance.now()
-
-
-console.log('time plain', end - start, 'ms')
-
-console.log('time binary', endB - startB, 'ms')
+console.log(binarySearchLoop(sorted, 999))
+console.log('test loop:', sorted[binarySearchLoop(sorted, 999)] === sorted[999])
+console.log('test recursive:', sorted[binarySearchRecursive(sorted, 999)] === sorted[999])
