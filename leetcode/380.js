@@ -19,30 +19,36 @@ class RandomizedSet {
       return false;
     }
 
-    const last = this.list[this.list.length - 1]
-    this.hashMap[last] = idx
-    this.hashMap[val] = undefined
-    
-    this.list[idx] = last
-    this.list.pop()
-    return true
+    const last = this.list[this.list.length - 1];
+    this.hashMap[last] = idx;
+    this.hashMap[val] = undefined;
+
+    this.list[idx] = last;
+    this.list.pop();
+    return true;
   }
 
   getRandom() {
-
-    const idx = Math.floor(Math.random() * this.list.length)
-    return this.list[idx]
+    const idx = Math.floor(Math.random() * this.list.length);
+    return this.list[idx];
   }
 }
 
 const randomizedSet = new RandomizedSet();
-const s1 = ["RandomizedSet","insert","remove","insert","getRandom","remove","insert","getRandom"]
-const s2 = [[],[1],[2],[2],[],[1],[2],[]]
+const s1 = [
+  "RandomizedSet",
+  "insert",
+  "remove",
+  "insert",
+  "getRandom",
+  "remove",
+  "insert",
+  "getRandom",
+];
+const s2 = [[], [1], [2], [2], [], [1], [2], []];
 
 s1.forEach((action, i) => {
   if (randomizedSet[action]) {
-    console.log(randomizedSet[action](s2[i][0]))
+    console.log(randomizedSet[action](s2[i][0]));
   }
-})
-
- 
+});
