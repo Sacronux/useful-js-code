@@ -10,19 +10,11 @@ var candy = function (ratings) {
             candies[i] = candies[i - 1] + 1
         }
     }
-    for (let i = candies.length - 2; i >= 0; i--) {
+    for (let i = candies.length - 1; i >= 0; i--) {
         if (ratings[i] > ratings[i + 1]) {
             candies[i] = Math.max(candies[i], candies[i + 1] + 1)
         }
         sum += candies[i]
     }
-
-    for (let i = 0; i < candies.length; i++) {
-    }
     return sum
 };
-
-const r1 = [1, 0, 2];
-const r2 = [1,2,4,4,3];
-const r3 = [1, 2, 2];
-console.log(candy(r2));

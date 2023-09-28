@@ -1,36 +1,15 @@
-const ids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-const root = (p) => {
-    while(ids[p] !== p) {
-        p = ids[p]
-    }
-    return p
-}
-
-const isConnected = (p, q) => {
-    const pRoot = root(p)
-    const qRoot = root(q)
-    return pRoot === qRoot;
-}
-
-const union = (p, q) => {
-    const pRoot = root(p)
-    const qRoot = root(q)
-
-    ids[pRoot] = qRoot; 
-}
-
 class QuickUnion {
     constructor (size) {
         this.ids = new Array(size);
         for (let i = 0; i < size; i++) {
-            ids[i] = i;
+            this.ids[i] = i;
         }
         this.size = new Array(size).fill(1)
     }
 
     root(p) {
         while(p !== this.ids[p]) {
+            validate(p)
             p = this.ids[p]
         }
         return p
@@ -39,7 +18,7 @@ class QuickUnion {
     rootPassCompression(p) {
         let root = p
         while (this.ids[root] !== root) {
-            root = ids[root]
+            root = this.ids[root]
         }
 
         while(p !== root) {
@@ -54,6 +33,23 @@ class QuickUnion {
         return this.root(p) === this.root(q)
     }
 
+    findBiggestElementConnected(p) {
+        let biggest = p;
+        for (let i = 0; i < this.ids.length; i++) {
+            if (this.isConnected(p, i)) {
+                if (i > biggest) {
+                    biggest = i
+                }
+            }
+        }
+        return biggest
+    }
+
+    findSmallestSuccessor(x) {
+        this.unionWeighted(x, x + 1)
+        return x + 1
+    }
+
     union(p, q) {
         const pRoot = this.root(p)
         const qRoot = this.root(q)
@@ -61,7 +57,7 @@ class QuickUnion {
         this.ids[pRoot] = qRoot;
     }
 
-    unionWeighted() {
+    unionWeighted(p, q) {
         const pRoot = this.root(p)
         const qRoot = this.root(q)
 
@@ -75,10 +71,14 @@ class QuickUnion {
     }
 }
 
-console.log(isConnected(0, 3))
-union(0, 3)
-union(1, 3)
-union(2, 4)
-union(4, 3)
-console.log(isConnected(0, 3))
-console.log(ids)
+const uf = new QuickUnion(10)
+uf.union(2, 3)
+uf.union(3, 4)
+uf.union(5, 4)
+uf.union(8, 3)
+console.log(uf.ids)
+console.log(uf.findBiggestElementConnected(2))
+
+
+
+
