@@ -46,5 +46,3 @@ var fullJustify = function(words, maxWidth) {
     }
     return rows
 };
-
-console.log(fullJustify(["This", "is", "an", "example", "of", "text", "justification."], 16))
