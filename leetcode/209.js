@@ -23,8 +23,7 @@ var minSubArrayLen = function(target, nums) {
             if (end === nums.length - 1) {
                 sum -= nums[start]
                 start++
-                sum = nums[start]
-                count = 1
+                count--
             } else {
                 end++
                 sum += nums[end]
