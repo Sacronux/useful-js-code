@@ -34,6 +34,3 @@ var maxArea = function(height) {
     }
     return maxTotal;
 };
-
-console.log(maxArea([2,3,4,5,18,17,6]))
-
