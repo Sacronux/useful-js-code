@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/Sacronux/useful-js-code/issues"
   },
-  "homepage": "https://github.com/Sacronux/useful-js-code#readme"
+  "homepage": "https://github.com/Sacronux/useful-js-code#readme",
+  "dependencies": {
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43"
+  }
 }

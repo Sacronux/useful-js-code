@@ -25,11 +25,11 @@ export class LinkedList {
     }
 }
 
-const lL = new LinkedList();
-lL.isEmpty();
-lL.push(4)
-lL.push(3)
-lL.push(2)
-lL.push(1)
-lL.pop()
+// const lL = new LinkedList();
+// lL.isEmpty();
+// lL.push(4)
+// lL.push(3)
+// lL.push(2)
+// lL.push(1)
+// lL.pop()
 // console.log(JSON.stringify(lL.first, null, 2))
