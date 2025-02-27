@@ -1,37 +1,49 @@
-const threeSum = (array) => {
-    array.sort((a, b) => a - b);
-    
-    
+function threeSum(arr) {
+    const sorted = arr.sort((a, b) => a - b);
+  
     const output = [];
-
-    for (let i = 0; i < array.length; i++) {
-        let left = 1;
-        let right = array.length - 1;
-        while (left < right) {
-            const sum = array[left] + array[right] + array[i];
-            console.log({ left, right, i })
-            if (sum === 0) {
-                output[output.length] = [array[left], array[right], array[i]];
-                while (array[left] === array[left + 1]) {
-                    left++
-                }
-                while (array[right] === array[right - 1]) {
-                    right--
-                }
-                left++;
-                right--;
-            } else if (sum > 0) {
-                right--
-            } else {
-                left++
-            }
+  
+    const target = 0;
+  
+    const dups = {}
+  
+    for (let i = 0; i < arr.length; i++) {
+      let left = i + 1;
+      let right = arr.length - 1;
+      const num = arr[i]
+  
+      while (left < right) {
+        const l = arr[left]
+        const r = arr[right]
+        const sum = l + r + num;
+  
+        if (sum < target) {
+          left++
+          continue;
         }
-        while (array[i] === array[i + 1]) {
-            i++
+  
+        if (sum > target) {
+          right--
+          continue;
         }
+  
+        if (dups[arr[left]] && dups[arr[right]] && dups[arr[i]]) {
+          left++
+          right--
+          continue;
+        }
+  
+        if (sum === target) {
+          dups[arr[i]] = true
+          dups[arr[left]] = true
+          dups[arr[right]] = true
+          output.push([num, l, r])
+          left++
+          right--
+          continue
+        }
+      }
     }
-
+  
     return output
-}
-
-console.log(threeSum([-1,0,1,2,-1,-4]))
+  }
